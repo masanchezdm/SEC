@@ -1,0 +1,233 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 11/09/2018, 05:29:33 PM
+    Author     : jonh
+*/
+
+* {
+    margin: 0px;
+    padding: 0px;
+    box-sizing:border-box;
+}
+
+
+header, section, footer, aside, nav, article, figure, figcaption,
+hgroup{
+    display: block;
+}
+
+body{
+    background:-webkit-linear-gradient(down, #FFFFFF, #f7fbff );
+    background:-moz-linear-gradient(down, #FFFFFF ,#f7fbff );
+    text-align: center;
+}
+
+#agrupar{
+    width: 80%;
+    margin: 15px auto;
+    text-align:left;
+    
+}
+#cabecera{
+    width:100% ;
+    height:70px;
+    text-align: right;
+    border: 1px solid #999999;
+    background: white;
+    padding-top:0px;
+    left: 0;
+    right: 0;
+    top: 0;
+    position: fixed;
+    border-bottom: 1px solid #DDE1E6;
+    box-shadow: 0px 2px 5px 0px #e5e8ec;
+    display: inline-block !important;
+    
+}
+#footer{
+    width:100% ;
+    height:30px;
+    text-align: right;
+    border: 1px solid #999999;
+    background: #d0d3d6;
+    padding-top:0px;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    position: fixed;
+    box-shadow: 4 0px 2px -2px gray;
+}
+
+#formulario{
+    width:100% ;
+    height:100px;
+    border: 1px solid #999999;
+    background: #F79113;
+    padding-top:10px;
+    padding-left: 23px;
+    border-radius: 20px 20px;
+}
+
+#param{
+    /*border: 1px solid #999999;*/
+    margin:20px 1%;
+    text-align: center;
+    background: #AD9897;
+    color:black;
+    border-radius: 20px 20px;
+}
+#parametro{
+    width: 200px;
+    height: 70px;
+    border-radius: 20px 20px;
+    text-align: center;
+    font-size: 16px;
+}
+/*probablemente este sea el boton general de aceptar*/
+.boton{ 
+    width: 200px;
+    height: 70px;
+    border-radius: 20px 20px;
+    text-align: center;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    background:#A35A16 ;
+}
+
+.btn{
+    min-width: 70px;
+    height: 40px;
+    border-radius: 5px 5px;
+    text-align: center;
+    font-size: 16px;
+    margin-top: 15px;    
+    margin-right: 10px;
+    padding: 5px 7px;
+    cursor: pointer;
+    background: none;
+    color:#3C3B37;
+    font-family:  sans-serif;
+}
+
+.btn-sesion{
+    border: 1px solid #4631FF !important;
+    margin-right: 20px;
+}
+.btn-sesion:hover{
+    border: 1px solid #4631FF;
+    background-color: #4631FF;
+    color: white;
+}
+.btn-aceptar{
+    border: 1px solid #148fcc;
+    margin-right: 20px;
+}
+.btn-aceptar:hover{
+    background-color: #148fcc;
+    color: white;
+}
+.btn-registro{
+    border: 1px solid #FF5100 !important;
+}
+.btn-registro:hover{
+    background-color: #FF5100;
+    color: white;
+}
+.btn-tipo-usu{
+    width: 300px;
+    margin-right: 20px;
+    margin-bottom: 50px;
+    border: 1px solid #bfb1ff;
+}
+.btn-tipo-usu:hover{
+    background-color: #bfb1ff;
+    color: white;
+}
+
+.btn-materia{
+    min-width: 130px;
+    min-height: 50px;
+}
+.btn-materia:hover{
+    background-color: #0095c9;
+    color: white;
+}
+
+.btn-nivel{
+    min-width: 130px;
+    min-height: 50px;
+}
+.btn-nivel:hover{
+    background-color: #48bcc1;
+    color: white;
+}
+
+
+
+.btn:focus { 
+    outline: none !important;
+}
+
+* {
+	outline: none;
+}
+
+.circulo {
+  height: 100px;
+  width: 100px;
+  text-align: center;
+  font-size:36px;
+  vertical-align: middle;
+  border-radius: 50%;
+  background: #8CC657;
+}
+
+.div_registro input{
+    border: 1px solid #DADBDC;
+    border-radius: 10px 10px;
+    margin-left: 20px;
+    padding-left: 20px;
+    width: 270px;
+    height: 35px;
+}
+.div_registro div{
+    display: inline-block;
+    margin: 7px 30px;
+}
+
+.div_registro label{
+    width: 75px;
+}
+
+::placeholder {
+    color: grey;
+    opacity: .2; /* Firefox */
+}
+
+.datos{
+    padding: 15px 15px;
+    
+}
+.datos:hover{
+    background-color: #e3fff8;
+}
+
+.eliminar{
+    width: 20px !important;
+    height: 18px;
+    text-align: center;
+    background-color: #ff0033;
+    font-size: 16px;
+    margin-top: 15px;    
+    margin-left: 20px;
+    padding: 5px 10px;
+    cursor: pointer;
+    border: none;
+    font-family:  sans-serif;
+    border-radius: 50%;
+}
