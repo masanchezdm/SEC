@@ -10,13 +10,20 @@
     "http://www.w3.org/TR/html4/loose.dtd">
 
 <script type="text/javascript">
-    function selected_role(elem){
-        $( ".btn-tipo-usu" ).each(function() {
-            $( this ).css("background-color", "white");
-            $( this ).css("color", "black");
-        });
-        elem.css("background-color", "#bfb1ff");
-        elem.css("color", "white");
+    function varifica_tel(elem){
+        if (elem.val().length > 10) {
+            elem.val(elem.val().slice(0,10)); 
+        }
+    }
+    
+    function verifica_contr(elem){
+        var contr1 = document.getElementById("contr1").value;
+        var contr2 = document.getElementById("contr2").value;
+        if(contr1 !== contr2){
+            $("#warning_password").show();
+        }else{
+            $("#warning_password").hide();
+        }
     }
     
 </script>
@@ -32,26 +39,23 @@
              <div class="div_registro" style="margin: 10px 20%; height: 70%; width: 60%; text-align: left">
                  <div class="form-group datos" style="margin-top: 20px; width: 100% " >
                      <label for="recipient-name" >Nombre</label>
-                     <input type="text" name="nombre" placeholder="Nombre"  style="width: 180px;"/>
-                     <input type="text" name="app_pat" placeholder="Paterno" style="width: 180px;"/>
-                     <input type="text" name="app_mat" placeholder="Materno" style="width: 180px;"/>
+                     <input type="text" name="nombre" maxlength="15" placeholder="Nombre"  style="width: 180px;"/>
+                     <input type="text" name="app_pat" maxlength="15" placeholder="Paterno" style="width: 180px;"/>
+                     <input type="text" name="app_mat" maxlength="15" placeholder="Materno" style="width: 180px;"/>
                  </div>
                  <div class="form-group datos" style="width: 100%" >
-                     <label for="recipient-name" >Usuario</label>
-                     <input type="text" name="usuario"/>
+                     <label for="recipient-name"  >Usuario</label>
+                     <input type="text" maxlength="10" name="usuario"/>
                  </div>
                  <div class="form-group datos" style="width: 100%">
                      <label for="recipient-name" >Telefono</label>
-                     <input type="text" name="tel"/>
-                 </div>
-                 <div class="form-group datos" style="width: 100%">
-                     <label for="recipient-name" >Correo</label>
-                     <input type="text" name="correo"/>
+                     <input type="number" min="0" max="99999" maxlength="5" name="tel" onkeyup="varifica_tel($(this))"/>
                  </div>
                  <div class="form-group datos" style="width: 100%">
                      <label for="recipient-name" >Contraseña</label>
-                     <input type="text" name="contrasena"/>
-                     <input type="text" name="contrasena2" placeholder="Ingresa nuevamente"/>                
+                     <input id="contr1"type="password" name="contrasena"/>
+                     <input id="contr2" type="password" maxlength="10" name="contrasena2" placeholder="Ingresa nuevamente" onkeyup="verifica_contr($(this).parent())" />                
+                     <img id="warning_password" style="display: none"src="<c:url value="/imagenes/warning.svg" />" style="width: 50px; height: 50px" >
                  </div>            
              </div>    
         </div>

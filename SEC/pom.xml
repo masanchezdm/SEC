@@ -88,6 +88,12 @@
             <version>1.2.2</version>
         </dependency>
         <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-core</artifactId>
+            <version>4.2.6.Final</version>
+            <type>jar</type>
+        </dependency>
+        <dependency>
             <groupId>javax</groupId>
             <artifactId>javaee-web-api</artifactId>
             <version>7.0</version>
@@ -120,6 +126,11 @@
             <groupId>org.webjars</groupId>
             <artifactId>webjars-locator</artifactId>
             <version>0.30</version>
+        </dependency>
+        <dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <version>9.3-1100-jdbc3</version>
         </dependency>
 
     </dependencies>
