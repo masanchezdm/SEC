@@ -16,7 +16,7 @@ import javax.persistence.Temporal;
 
 
 @Entity
-@Table(name="Usuario")
+@Table(name="usuario")
 
 /**
  *

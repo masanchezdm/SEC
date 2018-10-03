@@ -68,7 +68,35 @@
         elem.css("background-color", "#bfb1ff");
         elem.css("color", "white");   
         
+    }    var grocerias = ["puta", "puto","marica","pirobo","gonorrea"]
+    function filtro(elem){  
+        var textarea = elem.val();
+        for(var i = 0; i < grocerias.length;i++){
+            regex = new RegExp("(^|\\s)"+grocerias[i]+"($|(?=\\s))","gi")
+            textarea = textarea.replace(regex, function($0, $1){return $1 + ""});
+        }
+        elem.val(textarea);
     }
+    
+    function validateEmail(email){
+        var re = /^(?:[a-z0-9!#$%&amp;'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&amp;'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])$/;
+        return re.test(email);
+    }
+
+    function validate() {
+        var email = $("#correo").val();
+
+        if (validateEmail(email)) {
+          $("#warning_email").hide();
+          email_corrrecto = true;
+        } else {
+            $("#warning_email").show();
+            email_corrrecto = false;
+        }
+        return false;
+    }
+    
+
     
 </script>
       
@@ -81,9 +109,9 @@
              <div class="div_registro" style="margin: 10px 20%; height: 70%; width: 60%; text-align: left">
                 <div class="form-group datos" style="margin-top: 20px" >
                     <label for="recipient-name" >Nombre</label>
-                    <input type="text" name="nombre" placeholder="Nombre"  style="width: 180px;"/>
-                    <input type="text" name="app_pat" placeholder="Paterno" style="width: 180px;"/>
-                    <input type="text" name="app_mat" placeholder="Materno" style="width: 180px;"/>
+                    <input type="text" name="nombre" placeholder="Nombre"  style="width: 180px;" onchange="filtro($(this))"/>
+                    <input type="text" name="app_pat" placeholder="Paterno" style="width: 180px;" onchange="filtro($(this))"/>
+                    <input type="text" name="app_mat" placeholder="Materno" style="width: 180px;" onchange="filtro($(this))"/>
                 </div>
                  <div class="form-group datos" style="width: 100%">
                      <label for="recipient-name" >Telefono</label>
@@ -91,7 +119,8 @@
                  </div>
                 <div class="form-group datos">
                     <label for="recipient-name" >Correo</label>
-                    <input id="correo" type="text" name="correo"/>
+                    <input type='email' id="correo" type="text" name="correo" onchange="validate()"/>
+                    <img id="warning_email" style="display: none"src="<c:url value="/imagenes/warning.svg" />" style="width: 50px; height: 50px" >
                 </div>                 
                  <div class="form-group datos" style="width: 100%">
                      <label for="recipient-name" >Contraseña</label>

@@ -51,10 +51,9 @@
             </div> 
 
         <div style="margin-top: 20px;">
-            <span style="font-size: 25px; color: #48bcc1; ">Niveles disponibles</span>
+            <span style="font-size: 25px; color: #48bcc1; ">Agregar niveles y materias</span>
             <div style="display: inline-block; width: 90%; text-align: center" >
-                 <button type="button" class="btn btn-nivel" name=""> Primaria 
-                     <span class="eliminar">-</span>
+                 <button type="button" class="btn btn-nivel" name=""> Nuevo nivel  
                  </button>
                  <div style="text-align: center">
                     <hr style="width:70%; margin-left: 15%">

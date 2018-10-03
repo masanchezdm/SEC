@@ -31,8 +31,24 @@
         <property name="annotatedClasses">
             <list>
                 <!--Clases para el mapeo-->
-                <value>mx.unam.ciencias.is.modelo.Usuario</value>
-                
+                <value>mx.unam.ciencias.is.modelo.Usuario</value>                                
+            </list>
+        </property>
+        <property name="hibernateProperties">
+            <props>
+                <prop key="hibernate.dialect">org.hibernate.dialect.PostgreSQLDialect</prop>
+                <prop key="hibernate.show_sql">true</prop>
+                <prop key="hibernate.format_sql">false</prop>
+            </props>
+        </property>
+    </bean>
+    <bean id="hibernate2"
+          class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+        <property name="dataSource" ref="dataSource"/>
+        <property name="annotatedClasses">
+            <list>
+                <!--Clases para el mapeo-->
+                <value>mx.unam.ciencias.is.modelo.Materia</value>                                
             </list>
         </property>
         <property name="hibernateProperties">
@@ -49,6 +65,7 @@
           en el paquete controlador, se esta haciendo uso de @Autowiring-->
     <!--Ejemplo para configurar bean-->
     <bean id="UsuarioDAO" class="mx.unam.ciencias.is.modelo.UsuarioDAO" p:sessionFactory-ref="hibernate4AnnotatedSessionFactory"/>
+    <bean id="MateriaDAO" class="mx.unam.ciencias.is.modelo.MateriaDAO" p:sessionFactory-ref="hibernate2"/>
     
 
 </beans>

@@ -9,11 +9,13 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import mx.unam.ciencias.is.modelo.Materia;
+import mx.unam.ciencias.is.modelo.MateriaDAO;
 import mx.unam.ciencias.is.modelo.Usuario;
-import mx.unam.ciencias.is.modelo.UsuarioI;
 import mx.unam.ciencias.is.modelo.UsuarioDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -31,16 +33,14 @@ public class ControladorIndex {
     
     @Autowired
     private UsuarioDAO usuario_bd;
-    private static ArrayList<UsuarioI> usuarios = new ArrayList<UsuarioI>();
-    private UsuarioI usuario;
+    private MateriaDAO materia_bd;
+    private Usuario usuario;
      /**
       * Metodo que responde a la peticion raiz
       * @return el nombre del jsp de inicio
       */
     @RequestMapping(value="/", method = RequestMethod.GET)
     public String index(){
-        usuarios.add(new UsuarioI("admin", "admin", 2));
-        usuarios.add(new UsuarioI("adriana", "Sanchez", "Del Moral", "adriana", "55", "contrasena", 0));
         return "index";
     
     }
@@ -79,27 +79,20 @@ public class ControladorIndex {
         HttpSession objSesion = request.getSession(true);   
         String correo = request.getParameter("correo");
         String contrasena = request.getParameter("contrasena");
-        usuario= get_user(correo, contrasena);
+//        usuario= get_user(correo, contrasena);
+//        if(usuario == null)
+//            return new ModelAndView("index",model);//        
+//        model.addAttribute("parametro", usuario.getNombre());
+        usuario = (Usuario)usuario_bd.getPersona2(correo, contrasena);
+        
         if(usuario == null)
             return new ModelAndView("index",model);
         objSesion.setAttribute("usuario", usuario );
-        model.addAttribute("parametro", usuario.getNombre());
-        model.addAttribute("nombre", ((UsuarioI)objSesion.getAttribute("usuario")).getNombre());
+        model.addAttribute("parametro", "xxxx");
+        System.out.println("id es " + usuario.getIdPersona());
+        model.addAttribute("nombre", usuario.getNombre());
         return new ModelAndView("index",model);
     
-    }
-    
-    private static UsuarioI get_user(String correo, String contrasena){
-        if(usuarios.isEmpty())
-            System.out.println("No hay nada");
-        for(UsuarioI usuario: usuarios){
-            System.out.println(usuario.getNombre());
-            if(usuario.getCorreo().equals(correo) && usuario.getContrasena().equals(contrasena)){
-                System.out.println("lo encontro");
-                return usuario;
-            }
-        }
-        return null;
     }
     @RequestMapping(value="/cerrar_sesion", method = RequestMethod.GET)
     public ModelAndView cerrar_sesion(HttpServletRequest request,ModelMap model){
@@ -116,10 +109,11 @@ public class ControladorIndex {
         model.addAttribute("app", usuario.getApp());
         model.addAttribute("apm", usuario.getApm());
         model.addAttribute("correo", usuario.getCorreo());
-        model.addAttribute("telefono", usuario.getTelefono());
-        model.addAttribute("contrasena", usuario.getContrasena());
-        if(usuario.getIs_profesor() != 2)
+        model.addAttribute("telefono", usuario.getTel());
+        model.addAttribute("contrasena", usuario.getContrasenia());
+        if(usuario.getRol() != 2)
             return new ModelAndView("editar_perfil",model);
+        Materia materias = materia_bd.getMateria(1);
         return new ModelAndView("editar_admin",model);
     
     }
@@ -127,7 +121,11 @@ public class ControladorIndex {
     public ModelAndView registra(HttpServletRequest request,ModelMap model){        
         Enumeration enumeration = request.getParameterNames();
         Map<String, Object> modelMap = new HashMap<>();
-        Usuario nuevo = new Usuario();
+        Usuario nuevo = new Usuario();        
+        String correo = request.getParameter("correo");
+        String contrasena = request.getParameter("contrasena");
+        if(usuario_bd.getPersona2(correo, contrasena) == null)
+            return new ModelAndView("index",model);
         while(enumeration.hasMoreElements()){
             String parameterName = (String) enumeration.nextElement();
             if((request.getParameter(parameterName)).length() != 0  && parameterName.equals("nombre")){
@@ -155,55 +153,77 @@ public class ControladorIndex {
                 
             modelMap.put(parameterName, request.getParameter(parameterName));
         } 
-        usuario_bd.guardar(nuevo);
+        
+        
+        
+        usuario_bd.guardar(nuevo);   
+        usuario = nuevo;
         model.addAttribute("nombre", usuario.getNombre());
+        
         return new ModelAndView("index",model);
         
     
     }
 
-    @RequestMapping(value="/editar/datos", method = RequestMethod.POST)
+    @RequestMapping(value="/editar/datos/usuario", method = RequestMethod.POST)
     public ModelAndView editar_datos(HttpServletRequest request,ModelMap model){
         HttpSession objSesion = request.getSession(true); 
-        if(((UsuarioI)objSesion.getAttribute("usuario")).getNombre()== null)
+        if(usuario == null || (Usuario)objSesion.getAttribute("usuario")== null)
             return new ModelAndView("index",model);
-        Enumeration enumeration = request.getParameterNames();
-        Map<String, Object> modelMap = new HashMap<>();
-        while(enumeration.hasMoreElements()){
-            String parameterName = (String) enumeration.nextElement();
-            System.out.println(parameterName + " -> "+ ((request.getParameter(parameterName)).length() != 0));
-            if((request.getParameter(parameterName)).length() != 0  && parameterName.equals("nombre")){
-                usuario.setNombre(request.getParameter(parameterName));
-                System.out.println("entro a nombre "+ request.getParameter(parameterName));
-            }
-            if((request.getParameter(parameterName)).length() != 0 && parameterName.equals("app")){
-                usuario.setApp(request.getParameter(parameterName));
-            }
-            if((request.getParameter(parameterName)).length() != 0 && parameterName.equals("apm")){
-                usuario.setApm(request.getParameter(parameterName));
-            }
-            if((request.getParameter(parameterName)).length() != 0 && parameterName.equals("correo")){
-                usuario.setCorreo(request.getParameter(parameterName));
-            }
-            if((request.getParameter(parameterName)).length() != 0 && parameterName.equals("telefono")){
-                usuario.setTelefono(request.getParameter(parameterName));
-            }
-            if((request.getParameter(parameterName)).length() != 0 && parameterName.equals("contrasena")){
-                usuario.setContrasena(request.getParameter(parameterName));
-            }
-                
-//            modelMap.put(parameterName, request.getParameter(parameterName));
-        }        
+        String query = "";
+        String nombre = request.getParameter("nombre");
+        if(nombre.length() != 0)
+            usuario_bd.updateNombre(usuario.getIdPersona(), nombre);
+        String app = request.getParameter("app");
+        if(app.length() != 0)
+            usuario_bd.updateApp(usuario.getIdPersona(), app);
+        String apm = request.getParameter("apm");
+        if(apm.length() != 0)
+            usuario_bd.updateApm(usuario.getIdPersona(), apm);
+        String correo = request.getParameter("correo");
+        if(correo.length() != 0)
+            usuario_bd.updateCorreo(usuario.getIdPersona(), correo);
+        String contrasena = request.getParameter("contrasena");
+        if(contrasena.length() != 0)
+            usuario_bd.updateContrasena(usuario.getIdPersona(), contrasena);
+        String telefono = request.getParameter("telefono");
+        if(telefono.length() != 0)
+            usuario_bd.updateTelefono(usuario.getIdPersona(), telefono);
+        usuario = usuario_bd.getPersona(usuario.getIdPersona());     
         model.addAttribute("nombre", usuario.getNombre());
         model.addAttribute("app", usuario.getApp());
         model.addAttribute("apm", usuario.getApm());
         model.addAttribute("correo", usuario.getCorreo());
-        model.addAttribute("telefono", usuario.getTelefono());
-        model.addAttribute("contrasena", usuario.getContrasena());
-        if(usuario.getIs_profesor() != 2)
-            return new ModelAndView("editar_perfil",model);
+        model.addAttribute("telefono", usuario.getTel());
+        System.out.println("--------------------> " +usuario.getTel());
+        model.addAttribute("contrasena", usuario.getContrasenia());
+        if(usuario.getRol() != 2)
+                return new ModelAndView("editar_perfil",model);        
+        return new ModelAndView("editar_admin",model);
+        
+    }
+    @RequestMapping(value="/editar/datos/admin", method = RequestMethod.POST)
+    public ModelAndView editar_admin(HttpServletRequest request,ModelMap model){
+        HttpSession objSesion = request.getSession(true); 
+        if(usuario == null || (Usuario)objSesion.getAttribute("usuario")== null)
+            return new ModelAndView("index",model);
+        String contrasena = request.getParameter("contrasena");
+        if(contrasena.length() != 0)
+            usuario_bd.updateContrasena(usuario.getIdPersona(), contrasena);
+        usuario = usuario_bd.getPersona(usuario.getIdPersona());     
+        model.addAttribute("nombre", usuario.getNombre());
+        model.addAttribute("contrasena", usuario.getContrasenia());
+        Materia materias = materia_bd.getMateria(1);
+        
         return new ModelAndView("editar_admin",model);
         
     }
     
+    @RequestMapping(value="/nueva/materia", method = RequestMethod.POST)
+    public ModelAndView guarda(HttpServletRequest request,ModelMap model){ 
+        String nombre = request.getParameter("nombre");
+        Materia materia = new Materia(nombre);
+        materia_bd.guardar(materia);
+        return new ModelAndView("editar_admin",model);
+    }
 }

@@ -49,7 +49,7 @@ public class UsuarioDAO {
         }finally {
            session.close();
         }
-    
+        System.out.println("Termino de guardar");
     }
     
     
@@ -132,4 +132,178 @@ public class UsuarioDAO {
         return result;
     }
 
+    public Usuario getPersona2(String correo, String contrasena) {
+        Usuario result = null;
+        Session session = sessionFactory.openSession();
+        Transaction tx = null;
+        try {
+            tx = session.beginTransaction();
+            String hql = " from Usuario where correo = :correo and contrasena = :contrasena";
+            Query query = session.createQuery(hql);
+            query.setParameter("correo", correo);
+            query.setParameter("contrasena", contrasena);
+            result = (Usuario)query.uniqueResult();
+            tx.commit();
+        }
+        catch (Exception e) {
+           if (tx!=null){
+               tx.rollback();
+           }
+           e.printStackTrace(); 
+        }finally {
+           session.close();
+        }
+        return result;
+    }
+    
+    public Usuario updateNombre(Long id,String nombre) {        
+        Usuario result = null;
+        Session session = sessionFactory.openSession();
+        Transaction tx = null;
+        try {
+            tx = session.beginTransaction();
+            String hql = "update Usuario set nombre = :nombre"+
+    				" where id = :id";
+            Query query = session.createQuery(hql);
+            query.setParameter("nombre", nombre);
+            query.setParameter("id", id);
+            query.executeUpdate();
+            result = getPersona(id);
+            tx.commit();
+        }
+        catch (Exception e) {
+           if (tx!=null){
+               tx.rollback();
+           }
+           e.printStackTrace(); 
+        }finally {
+           session.close();
+        }
+        return result;
+    }
+    public Usuario updateApp(Long id,String nombre) {        
+        Usuario result = null;
+        Session session = sessionFactory.openSession();
+        Transaction tx = null;
+        try {
+            tx = session.beginTransaction();
+            String hql = "update Usuario set app = :nombre"+
+    				" where id = :id";
+            Query query = session.createQuery(hql);
+            query.setParameter("nombre", nombre);
+            query.setParameter("id", id);
+            query.executeUpdate();
+            result = getPersona(id);
+            tx.commit();
+        }
+        catch (Exception e) {
+           if (tx!=null){
+               tx.rollback();
+           }
+           e.printStackTrace(); 
+        }finally {
+           session.close();
+        }
+        return result;
+    }
+    public Usuario updateApm(Long id,String nombre) {        
+        Usuario result = null;
+        Session session = sessionFactory.openSession();
+        Transaction tx = null;
+        try {
+            tx = session.beginTransaction();
+            String hql = "update Usuario set apm = :nombre"+
+    				" where id = :id";
+            Query query = session.createQuery(hql);
+            query.setParameter("nombre", nombre);
+            query.setParameter("id", id);
+            query.executeUpdate();
+            result = getPersona(id);
+            tx.commit();
+        }
+        catch (Exception e) {
+           if (tx!=null){
+               tx.rollback();
+           }
+           e.printStackTrace(); 
+        }finally {
+           session.close();
+        }
+        return result;
+    }
+    public Usuario updateCorreo(Long id,String nombre) {        
+        Usuario result = null;
+        Session session = sessionFactory.openSession();
+        Transaction tx = null;
+        try {
+            tx = session.beginTransaction();
+            String hql = "update Usuario set correo = :nombre"+
+    				" where id = :id";
+            Query query = session.createQuery(hql);
+            query.setParameter("nombre", nombre);
+            query.setParameter("id", id);
+            query.executeUpdate();
+            result = getPersona(id);
+            tx.commit();
+        }
+        catch (Exception e) {
+           if (tx!=null){
+               tx.rollback();
+           }
+           e.printStackTrace(); 
+        }finally {
+           session.close();
+        }
+        return result;
+    }
+    public Usuario updateContrasena(Long id,String nombre) {        
+        Usuario result = null;
+        Session session = sessionFactory.openSession();
+        Transaction tx = null;
+        try {
+            tx = session.beginTransaction();
+            String hql = "update Usuario set contrasena = :nombre"+
+    				" where id = :id";
+            Query query = session.createQuery(hql);
+            query.setParameter("nombre", nombre);
+            query.setParameter("id", id);
+            query.executeUpdate();
+            result = getPersona(id);
+            tx.commit();
+        }
+        catch (Exception e) {
+           if (tx!=null){
+               tx.rollback();
+           }
+           e.printStackTrace(); 
+        }finally {
+           session.close();
+        }
+        return result;
+    }
+    public Usuario updateTelefono(Long id,String nombre) {        
+        Usuario result = null;
+        Session session = sessionFactory.openSession();
+        Transaction tx = null;
+        try {
+            tx = session.beginTransaction();
+            String hql = "update Usuario set telefono = :nombre"+
+    				" where id = :id";
+            Query query = session.createQuery(hql);
+            query.setParameter("nombre", nombre);
+            query.setParameter("id", id);
+            query.executeUpdate();
+            result = getPersona(id);
+            tx.commit();
+        }
+        catch (Exception e) {
+           if (tx!=null){
+               tx.rollback();
+           }
+           e.printStackTrace(); 
+        }finally {
+           session.close();
+        }
+        return result;
+    }
 }
