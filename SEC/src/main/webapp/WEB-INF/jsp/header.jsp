@@ -23,7 +23,6 @@
     <form id="registro_form" action="/registrarse" method="GET">        
     </form>
     <header id="cabecera">
-        ${parametro}
         <button class="btn"> Features</button>
         <button class="btn"> Enterprise</button>
         <button type="button" class="btn"> Support </button>        
