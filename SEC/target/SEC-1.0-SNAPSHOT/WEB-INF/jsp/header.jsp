@@ -20,16 +20,19 @@
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
         <script src="<c:url value="/js/ejemplo.js" />"></script>
     </head>
+    <form id="registro_form" action="/registrarse" method="GET">        
+    </form>
     <header id="cabecera">
+        ${parametro}
         <button class="btn"> Features</button>
         <button class="btn"> Enterprise</button>
-        <button type="button" class="btn"> Support </button>
-        <button type="button" class="btn btn-registro"> Registrarse </button>
-        <% if ((String)session.getAttribute("usuario") == null) { %>
+        <button type="button" class="btn"> Support </button>        
+        <% if (request.getAttribute("nombre") == null) { %>
+            <button type="button" class="btn btn-registro" onclick="document.getElementById('registro_form').submit()"> Registrarse </button>
             <button type="button" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo"class="btn btn-sesion"> Iniciar </button>
         <% } else {%>
             <button type="button" class="btn btn-sesion" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                ${sesion}
+                ${nombre}
             </button>
             <div class="dropdown-menu" style="margin-top: 15px">
                 <form  id="perfil_form" action="/editar_perfil" method="GET">
@@ -45,7 +48,7 @@
     
     <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
-            <form action="/iniciar_sesion" method="GET">
+            <form action="/iniciar_sesion" method="POST">
                 <div class="modal-content">
                   <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel">Hola de nuevo</h5>
@@ -67,7 +70,7 @@
                   </div>
                   <div class="modal-footer">                
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                    <button type="submit " class="btn btn-primary">Aceptar</button>
+                    <button type="submit " class="btn btn-primary">Aceptar1</button>
                   </div>
                 </div>
             </form>

@@ -5,11 +5,15 @@
        xmlns:p="http://www.springframework.org/schema/p"
        xmlns:aop="http://www.springframework.org/schema/aop"
        xmlns:tx="http://www.springframework.org/schema/tx"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
-       http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.0.xsd
-       http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd">
+       xsi:schemaLocation="http://www.springframework.org/schema/beans 
+                           http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+                           http://www.springframework.org/schema/aop 
+                           http://www.springframework.org/schema/aop/spring-aop-4.0.xsd
+                           http://www.springframework.org/schema/tx 
+                           http://www.springframework.org/schema/tx/spring-tx-4.0.xsd">
 
-<!-- Se especifica la ruta del archivo que tendra los datos de la conexión a la BD,
+    
+    <!-- Se especifica la ruta del archivo que tendra los datos de la conexión a la BD,
      en este caso el archivo se llama database.properties y se encuentra dentro de 
      la carpeta WEB-INF -->
     <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer" p:location="/WEB-INF/database.properties"/>
@@ -26,7 +30,7 @@
         <property name="dataSource" ref="dataSource"/>
         <property name="annotatedClasses">
             <list>
-                Clases para el mapeo
+                <!--Clases para el mapeo-->
                 <value>mx.unam.ciencias.is.modelo.Usuario</value>
                 
             </list>
@@ -46,5 +50,5 @@
     <!--Ejemplo para configurar bean-->
     <bean id="UsuarioDAO" class="mx.unam.ciencias.is.modelo.UsuarioDAO" p:sessionFactory-ref="hibernate4AnnotatedSessionFactory"/>
     
-            
+
 </beans>

@@ -16,7 +16,7 @@ import javax.persistence.Temporal;
 
 
 @Entity
-@Table(name="usuario")
+@Table(name="Usuario")
 
 /**
  *
@@ -30,16 +30,65 @@ public class Usuario implements Serializable{
     private long idPersona;
     
     //El nombre del usuario
-    @Column(name = "nombre")
+    @Column(name = "Nombre")
     private String nombre;
     
     //El correo del usuario
-    @Column(name = "correo")
+    @Column(name = "Correo")
     private String correo;
     
     //La contrasenia del usuario
-    @Column(name = "contrasenia")
+    @Column(name = "Contrasena")
     private String contrasenia;
+    
+    //El apellido paterno del usuario
+    @Column(name = "App")
+    private String app;
+    
+    //El apellido materno del usuario
+    @Column(name = "Apm")
+    private String apm;
+    
+    //El apellido materno del usuario
+    @Column(name = "Telefono")
+    private String tel;
+    
+    //El rol del usuario
+    @Column(name = "Rol")
+    private Integer rol;
+
+    public Integer getRol() {
+        return rol;
+    }
+
+    public void setRol(Integer rol) {
+        this.rol = rol;
+    }
+
+    public String getApp() {
+        return app;
+    }
+
+    public void setApp(String app) {
+        this.app = app;
+    }
+
+    public String getApm() {
+        return apm;
+    }
+
+    public void setApm(String apm) {
+        this.apm = apm;
+    }
+
+    public String getTel() {
+        return tel;
+    }
+
+    public void setTel(String tel) {
+        this.tel = tel;
+    }
+    
 
     public long getIdPersona() {
         return idPersona;
@@ -67,6 +116,15 @@ public class Usuario implements Serializable{
 
     public String getContrasenia() {
         return contrasenia;
+    }
+
+    public Usuario(String nombre, String correo, String contrasenia, String app, String apm, String tel) {
+        this.nombre = nombre;
+        this.correo = correo;
+        this.contrasenia = contrasenia;
+        this.app = app;
+        this.apm = apm;
+        this.tel = tel;
     }
 
     public void setContrasenia(String contrasenia) {

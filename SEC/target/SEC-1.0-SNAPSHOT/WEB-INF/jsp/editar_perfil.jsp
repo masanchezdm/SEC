@@ -10,6 +10,7 @@
     "http://www.w3.org/TR/html4/loose.dtd">
 
 <script type="text/javascript">
+    var correcto = true;
     function varifica_tel(elem){
         if (elem.val().length > 10) {
             elem.val(elem.val().slice(0,10)); 
@@ -20,9 +21,25 @@
         var contr1 = document.getElementById("contr1").value;
         var contr2 = document.getElementById("contr2").value;
         if(contr1 !== contr2){
+            correcto = false;
             $("#warning_password").show();
         }else{
+            correcto = true;
             $("#warning_password").hide();
+        }
+    }
+    function actualiza_contr(){
+        $('#contr2').show()
+        $('#contr2').html("");
+        correcto = false;
+    }
+    
+    function enviar(form){
+        if(correcto)
+            form.submit();
+        else{
+            $('#contr1').css("border", "1px solid red")
+            $('#contr2').css("border", "1px solid red")
         }
     }
     
@@ -39,22 +56,22 @@
              <div class="div_registro" style="margin: 10px 20%; height: 70%; width: 60%; text-align: left">
                  <div class="form-group datos" style="margin-top: 20px; width: 100% " >
                      <label for="recipient-name" >Nombre</label>
-                     <input type="text" name="nombre" maxlength="15" placeholder="Nombre"  style="width: 180px;"/>
-                     <input type="text" name="app_pat" maxlength="15" placeholder="Paterno" style="width: 180px;"/>
-                     <input type="text" name="app_mat" maxlength="15" placeholder="Materno" style="width: 180px;"/>
+                     <input type="text" name="nombre" maxlength="15" placeholder="Nombre"  style="width: 180px;" value="${nombre}"/>
+                     <input type="text" name="app" maxlength="15" placeholder="Paterno" style="width: 180px;"  value="${app}"/>
+                     <input type="text" name="apm" maxlength="15" placeholder="Materno" style="width: 180px;" value="${apm}"/>
                  </div>
-                 <div class="form-group datos" style="width: 100%" >
-                     <label for="recipient-name"  >Usuario</label>
-                     <input type="text" maxlength="10" name="usuario"/>
+                 <div class="form-group datos" style="width: 100%">
+                     <label for="recipient-name" >Correo</label>
+                     <input type="text" name="correo" value="${correo}"/>
                  </div>
                  <div class="form-group datos" style="width: 100%">
                      <label for="recipient-name" >Telefono</label>
-                     <input type="number" min="0" max="99999" maxlength="5" name="tel" onkeyup="varifica_tel($(this))"/>
+                     <input type="number" min="0" max="99999" maxlength="5" name="telefono" onkeyup="varifica_tel($(this))" value="${telefono}"/>
                  </div>
                  <div class="form-group datos" style="width: 100%">
                      <label for="recipient-name" >Contraseña</label>
-                     <input id="contr1"type="password" name="contrasena"/>
-                     <input id="contr2" type="password" maxlength="10" name="contrasena2" placeholder="Ingresa nuevamente" onkeyup="verifica_contr($(this).parent())" />                
+                     <input id="contr1"type="password" name="contrasena" maxlength="15" onchange="actualiza_contr()"/>
+                     <input id="contr2" type="password"  style="display:none"maxlength="15" name="contrasena2" placeholder="Ingresa nuevamente" onkeyup="verifica_contr($(this).parent())" />                
                      <img id="warning_password" style="display: none"src="<c:url value="/imagenes/warning.svg" />" style="width: 50px; height: 50px" >
                  </div>            
              </div>    
@@ -79,7 +96,7 @@
              </div>
          </div>
 
-        <button type="submit" class="btn btn-aceptar" style="width: 200px; margin-top: 50px;">Guardar </button>
+                 <button type="button" class="btn btn-aceptar" style="width: 200px; margin-top: 50px;" onclick="enviar($(this).parent())">Guardar </button>
     </form>
 </div>
     
