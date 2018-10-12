@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
+  <persistence-unit name="mx.unam.ciencias.is_SEC_war_1.0-SNAPSHOTPU" transaction-type="RESOURCE_LOCAL">
+    <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+    <class>mx.unam.ciencias.is.modelo.Alumno</class>
+    <class>mx.unam.ciencias.is.modelo.Profesor</class>
+    <class>mx.unam.ciencias.is.modelo.Clase</class>
+    <class>mx.unam.ciencias.is.modelo.Nivel</class>
+    <class>mx.unam.ciencias.is.modelo.Horario</class>
+    <class>mx.unam.ciencias.is.modelo.Materia</class>
+    <class>mx.unam.ciencias.is.modelo.Evaluacion</class>
+    <class>mx.unam.ciencias.is.modelo.Usuario_1</class>
+    <class>mx.unam.ciencias.is.modelo.UsuarioDB</class>
+    <exclude-unlisted-classes>false</exclude-unlisted-classes>
+    <properties>
+      <property name="javax.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/postgres"/>
+      <property name="javax.persistence.jdbc.user" value="postgres"/>
+      <property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver"/>
+      <property name="javax.persistence.jdbc.password" value="password"/>
+    </properties>
+  </persistence-unit>
+</persistence>
